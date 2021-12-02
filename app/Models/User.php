@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Contact::class, 'tenant_id', 'tenant_id')->orderBy('id', 'DESC');
     }
 
+    public function getTenantNotifications(){
+        return $this->hasMany(TenantNotification::class, 'tenant_id');
+    }
+
     /*
      * Use-case methods
      */

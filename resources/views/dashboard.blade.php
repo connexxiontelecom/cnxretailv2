@@ -4,16 +4,7 @@
 @endsection
 
 @section('breadcrumb-action-btn')
-    <a href="#" class="btn btn-primary btn-icon text-white mr-2">
-            <span>
-                <i class="fe fe-shopping-cart"></i>
-            </span> Add Order
-    </a>
-    <a href="#" class="btn btn-secondary btn-icon text-white">
-            <span>
-                <i class="fe fe-plus"></i>
-            </span> Add User
-    </a>
+
 @endsection
 
 @section('main-content')
@@ -122,30 +113,16 @@
                             </div>
                         </div>
                     </div>
-                    <span class="fs-12 text-muted">  <span class="text-muted fs-12 ml-0 mt-1">Unpaid Bills</span></span>
+                    <span class="fs-12 text-muted"> <strong>1.05%</strong><i class="mdi mdi-arrow-up"></i> <span class="text-muted fs-12 ml-0 mt-1">than last week</span></span>
                 </div>
             </div>
         </div>
     </div>
     <!-- Row-1 End -->
 
-    <!-- ROW-2 -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
-            <div class="card overflow-hidden">
-                <div class="card-header">
-                    <h3 class="card-title">Monthly Sales Statistics</h3>
-                </div>
-                <div class="card-body">
-                    <div id="sales" class=""></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ROW-2 END -->
     <!-- ROW-4 -->
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Recent Orders</h3>
@@ -183,179 +160,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Recent Activity</h3>
-                </div>
-                <div class="card-body">
-                    <div class="activity-block">
-                        <ul class="task-list user-tasks">
-                            <li>
-                                <span class="avatar avatar-md brround cover-image task-icon1" data-image-src="../assets/images/users/1.jpg"></span>
-                                <h6>Successful Purchase<small class="float-right text-muted tx-11">29 Mar 2020</small></h6>
-                                <span class="text-muted tx-12">Order ID: #4567</span>
-                            </li>
-                            <li>
-                                <span class="avatar avatar-md brround cover-image task-icon1" data-image-src="../assets/images/users/2.jpg"></span>
-                                <h6>New Registered Seller<small class="float-right text-muted tx-11">25 Mar 2020</small></h6>
-                                <span class="text-muted tx-12">User ID: #8976</span>
-                            </li>
-                            <li>
-                                <span class="avatar avatar-md brround cover-image task-icon1 bg-pink">H</span>
-                                <h6>Order Verification<small class="float-right text-muted tx-11">14 Feb 2020</small></h6>
-                                <span class="text-muted tx-12">Order ID: #6290</span>
-                            </li>
-                            <li>
-                                <span class="avatar avatar-md brround cover-image task-icon1" data-image-src="../assets/images/users/8.jpg"></span>
-                                <h6>New Item Added<small class="float-right text-muted tx-11">02 Feb 2020</small></h6>
-                                <span class="text-muted tx-12">Item ID: #0235</span>
-                            </li>
-                            <li>
-                                <span class="avatar avatar-md brround cover-image task-icon1" data-image-src="../assets/images/users/9.jpg"></span>
-                                <h6>Purchase Cancellation<small class="float-right text-muted tx-11">28 Jan 2020</small></h6>
-                                <span class="text-muted tx-12">Order ID: #1905</span>
-                            </li>
-                            <li class="mb-0">
-                                <span class="avatar avatar-md brround cover-image task-icon1 bg-success">M</span>
-                                <h6>Overdue Shipments<small class="float-right text-muted tx-11">25 Jan 2020</small></h6>
-                                <span class="text-muted tx-12">Order ID: #8902</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ROW-4 END -->
 
-    <!-- ROW-5 -->
-    <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Recently Contacts</h3>
-                </div>
-                <div class="customer-scroll">
-                    @foreach($contacts->take(5) as $contact)
-                        <div class="list-group-item d-flex  align-items-center border-top-0 border-left-0 border-right-0">
-                        <div class="">
-                            <div class="font-weight-semibold">{{$contact->company_name ?? '' }}</div>
-                            <small class="text-muted">{{$contact->contact_first_name ?? '' }} {{$contact->contact_last_name ?? '' }}
-                            </small>
-                        </div>
-                        <div class="ml-auto">
-                            <a href="{{route('view-contact', $contact->slug)}}" class="btn btn-sm btn-default">View</a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div><!-- COL END -->
-        <div class="col-lg-8 col-md-12 col-sm-12 col-xl-8">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Top Selling Products</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table card-table border table-vcenter text-nowrap align-items-center">
-                            <thead class="">
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <img src="../assets/images/pngs/1.png" alt="img" class="h-7 w-7">
-                                    <p class="d-inline-block align-middle mb-0 ml-1">
-                                        <a href="#" class="d-inline-block align-middle mb-0 product-name text-dark font-weight-semibold">Arm Chair</a>
-                                        <br>
-                                        <span class="text-muted fs-13">Office Chair</span>
-                                    </p>
-                                </td>
-                                <td>Home Accessories</td>
-                                <td class="font-weight-semibold fs-15">$59.00</td>
-                                <td><span class="badge badge-danger-light badge-md">Sold</span></td>
-                                <td>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Save to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../assets/images/pngs/2.png" alt="img" class="h-7 w-7">
-                                    <p class="d-inline-block align-middle mb-0 ml-1">
-                                        <a href="#" class="d-inline-block align-middle mb-0 product-name text-dark font-weight-semibold">Arm Chair</a>
-                                        <br>
-                                        <span class="text-muted fs-13">T-Shirt</span>
-                                    </p>
-                                </td>
-                                <td>Mens Wear</td>
-                                <td class="font-weight-semibold fs-15">$45.00</td>
-                                <td><span class="badge badge-danger-light badge-md">Sold</span></td>
-                                <td>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Save to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../assets/images/pngs/3.png" alt="img" class="h-7 w-7">
-                                    <p class="d-inline-block align-middle mb-0 ml-1">
-                                        <a href="#" class="d-inline-block align-middle mb-0 product-name text-dark font-weight-semibold">Arm Chair</a>
-                                        <br>
-                                        <span class="text-muted fs-13">Watch</span>
-                                    </p>
-                                </td>
-                                <td>Men Accessories</td>
-                                <td class="font-weight-semibold fs-15">$123.00</td>
-                                <td><span class="badge badge-danger-light badge-md">Sold</span></td>
-                                <td>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Save to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../assets/images/pngs/4.png" alt="img" class="h-7 w-7">
-                                    <p class="d-inline-block align-middle mb-0 ml-1">
-                                        <a href="#" class="d-inline-block align-middle mb-0 product-name text-dark font-weight-semibold">Arm Chair</a>
-                                        <br>
-                                        <span class="text-muted fs-13">Hand Bag</span>
-                                    </p>
-                                </td>
-                                <td>Women Accessories</td>
-                                <td class="font-weight-semibold fs-15">$98.00</td>
-                                <td><span class="badge badge-danger-light badge-md">Sold</span></td>
-                                <td>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
-                                    <a class="btn btn-default btn-sm mb-2 mb-xl-0" data-toggle="tooltip" data-original-title="Save to Wishlist"><i class="fa fa-heart-o"></i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <!-- ROW-5 END -->
+
 @endsection
 @section('extra-scripts')
-    <script src="/assets/js/circle-progress.min.js"></script>
-    <script src="/assets/plugins/chart/Chart.bundle.js"></script>
-    <script src="/assets/plugins/chart/utils.js"></script>
-    <script src="/assets/plugins/peitychart/jquery.peity.min.js"></script>
-    <script src="/assets/plugins/peitychart/peitychart.init.js"></script>
-    <script src="/assets/js/apexcharts.js"></script>
-    <script src="/assets/js/index1.js"></script>
-    <script src="/assets/js/custom.js"></script>
     <script>
         $(document).ready(function(){
             var now = new Date();
@@ -373,7 +182,7 @@
             if (hrs > 22) {msg = "Well done!"; src = "/assets/drive/late-night.jpg"; }        // After 10pm
             $('#greeting').text(msg);
             $('#greeting-image').attr('src',src);
-            console.log(hrs);
+
         });
 
     </script>

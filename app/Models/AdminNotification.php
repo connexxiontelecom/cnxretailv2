@@ -22,4 +22,8 @@ class AdminNotification extends Model
         $notify->is_read = 0; //not read
         $notify->save();
     }
+
+    public function getNotifications(){
+        return AdminNotification::orderBy('id', 'DESC')->get();
+    }
 }

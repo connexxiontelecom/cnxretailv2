@@ -5,7 +5,7 @@
     <div class="page-main">
 
         @include('partials._admin-sidebar-menu')
-        @include('partials._app-header')
+        @include('partials._admin-app-header')
         <div class="app-content">
             <div class="side-app">
                 @include('partials._breadcrumb')

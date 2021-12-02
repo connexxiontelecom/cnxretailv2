@@ -1,9 +1,9 @@
-@extends('layouts.admin-layout')
+@extends('layouts.master-layout')
 @section('active-page')
-    Manage Users
+    Notifications
 @endsection
 @section('title')
-    Manage Users
+    Notifications
 @endsection
 @section('extra-styles')
     <link href="/assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet"/>
@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4>Manage Users</h4>
+                    <h4>Notifications</h4>
                     @if(session()->has('success'))
                         <div class="alert alert-success mb-4">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -32,19 +32,25 @@
                             <thead>
                             <tr>
                                 <th class="">#</th>
-                                <th class="wd-15p">Full Name</th>
-                                <th class="wd-15p">Email</th>
-                                <th class="wd-15p">Mobile No.</th>
+                                <th class="wd-15p">Subject</th>
+                                <th class="wd-15p">Message</th>
+                                <th class="wd-15p">Status</th>
+                                <th class="wd-25p">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @php $serial = 1; @endphp
-                            @foreach($users as $user)
+                            @foreach($notifications as $notification)
                                 <tr>
                                     <td>{{$serial++}}</td>
-                                    <td>{{$user->full_name ??  '' }}</td>
-                                    <td>{{$user->email ??  '' }}</td>
-                                    <td>{{$user->mobile_no ??  '' }}</td>
+                                    <td>{{$notification->subject ??  '' }}</td>
+                                    <td>{{ strlen($notification->body) > 54 ? substr($notification->body,0,51).'...' : $notification->body  }}</td>
+                                    <td>
+                                        {!! $notification->is_read == 0 ? "<span class='text-danger'>Unread</span>" : "<span class='text-success'>Read</span>" !!}
+                                    </td>
+                                    <td>
+                                        <a href="{{$notification->route_type == 0 ? route($notification->route_name) : route($notification->route_name, $notification->route_param)}}"  class="btn btn-sm btn-info">View</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

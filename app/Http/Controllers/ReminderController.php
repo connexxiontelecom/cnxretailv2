@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reminder;
+use App\Models\TenantNotification;
 use Illuminate\Http\Request;
 
 class ReminderController extends Controller
@@ -11,6 +12,7 @@ class ReminderController extends Controller
     {
         $this->middleware('auth');
         $this->reminder = new Reminder();
+        $this->tenantnotification = new TenantNotification();
     }
 
     public function showReminders(){
@@ -31,5 +33,9 @@ class ReminderController extends Controller
         $this->reminder->setNewReminder($request->subject, $request->conversation, $request->remind_at, $color, 2);
         session()->flash("success", "Your reminder was scheduled successfully.");
         return back();
+    }
+
+    public function notifications(){
+        return view('reminder.notifications',['notifications'=>$this->tenantnotification->getNotifications()]);
     }
 }

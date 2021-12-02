@@ -18,6 +18,12 @@
             </a>
         </li>
         <li class="slide">
+            <a class="side-menu__item" href="{{route('admin-notifications')}}">
+                <i class="ti-bell mr-2"></i>
+                <span class="side-menu__label">Notifications</span>
+            </a>
+        </li>
+        <li class="slide">
             <a class="side-menu__item" data-toggle="slide" href="#">
                 <i class="mdi mdi-settings mr-2"></i>
                 <span class="side-menu__label">Settings</span><i class="angle fa fa-angle-right"></i>
@@ -25,7 +31,6 @@
             <ul class="slide-menu">
                 <li><a href="{{route('manage-pricing')}}" class="slide-item"> Pricing</a></li>
                 <li><a href="{{route('daily-motivation')}}" class="slide-item">Daily Motivation</a></li>
-                <li><a href="{{route('add-new-team-member')}}" class="slide-item">Activity Log</a></li>
             </ul>
         </li>
         <li class="slide">
@@ -36,8 +41,6 @@
             <ul class="slide-menu">
                 <li><a href="{{route('manage-tenants')}}" class="slide-item"> All Tenants</a></li>
                 <li><a href="{{route('subscriptions')}}" class="slide-item">Subscriptions</a></li>
-                <li><a href="{{route('add-new-team-member')}}" class="slide-item">Activity Log</a></li>
-                <li><a href="{{route('add-new-team-member')}}" class="slide-item">Tenant Report</a></li>
             </ul>
         </li>
         <li class="slide">
@@ -46,7 +49,7 @@
                 <span class="side-menu__label">Super-admin</span><i class="angle fa fa-angle-right"></i>
             </a>
             <ul class="slide-menu">
-                <li><a href="{{route('manage-workforce')}}" class="slide-item"> All Users</a></li>
+                <li><a href="{{route('manage-admin-users')}}" class="slide-item"> All Users</a></li>
                 <li><a href="{{route('add-new-admin-user')}}" class="slide-item">Add New User</a></li>
             </ul>
         </li>

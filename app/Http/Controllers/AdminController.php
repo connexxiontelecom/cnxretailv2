@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminNotification;
 use App\Models\AdminUser;
 use App\Models\DailyMotivation;
 use App\Models\Pricing;
@@ -19,6 +20,11 @@ class AdminController extends Controller
         $this->subscription = new Subscription();
         $this->pricing = new Pricing();
         $this->dailymotivation = new DailyMotivation();
+        $this->adminnotification = new AdminNotification();
+    }
+
+    public function notification(){
+        return view('admin.notifications',['notifications'=>$this->adminnotification->getNotifications()]);
     }
 
     public function adminDashboard(){
@@ -137,6 +143,10 @@ class AdminController extends Controller
         $this->dailymotivation->editDailyMotivation($request);
         session()->flash("success", "Your changes were saved.");
         return back();
+    }
+
+    public function manageAdminUsers(){
+        return view('admin.manage-admin-users',['users'=>$this->adminuser->getAllAdminUsers()]);
     }
 
 }
