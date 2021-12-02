@@ -16,23 +16,25 @@ class Pricing extends Model
         $price = new Pricing();
         $price->price_name = $request->name ?? '' ;
         $price->price = $request->amount ?? 0;
-        $price->duration = $request->duration ?? 14 ; //14 days trial
+        $price->duration = $request->duration ?? 30 ; //14 days trial
         $price->description = $request->description ?? '';
         $price->save();
     }
 
     public function editPricing(Request $request){
-
-        $price = Pricing::find($request->pricing);
+        $price = Pricing::find($request->price);
         $price->price_name = $request->name ?? '' ;
         $price->price = $request->amount ?? 0;
-        $price->duration = $request->duration ?? 14 ; //14 days trial
+        $price->duration = $request->duration ?? 30 ; //14 days trial
         $price->description = $request->description ?? '';
         $price->save();
     }
 
     public function getPricingExcludingTrial(){
-        return Pricing::where('duration', '>', 14)->orderBy('duration', 'ASC')->get();
+        return Pricing::where('duration', '>', 30)->orderBy('duration', 'ASC')->get();
+    }
+    public function getAllPricing(){
+        return Pricing::orderBy('duration', 'ASC')->get();
     }
 
     public function getPricingByPricingId($id){

@@ -184,6 +184,9 @@ Route::prefix('/tunnel')->group(function(){
     Route::get('/manage-tenants',[App\Http\Controllers\AdminController::class, 'manageTenants'])->name('manage-tenants');
     Route::get('/view-tenant/{slug}',[App\Http\Controllers\AdminController::class, 'viewTenant'])->name('view-tenant');
     Route::get('/subscription',[App\Http\Controllers\AdminController::class, 'getTenantSubscriptions'])->name('subscriptions');
+    Route::get('/manage-pricing',[App\Http\Controllers\AdminController::class, 'managePricing'])->name('manage-pricing');
+    Route::post('/add-pricing',[App\Http\Controllers\AdminController::class, 'addPricing'])->name('add-pricing');
+    Route::post('/update-pricing',[App\Http\Controllers\AdminController::class, 'editPricing'])->name('update-pricing');
 });
 
 Auth::routes();

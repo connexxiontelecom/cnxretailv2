@@ -18,10 +18,15 @@
             </a>
         </li>
         <li class="slide">
-            <a class="side-menu__item" href="{{route('app-settings')}}">
+            <a class="side-menu__item" data-toggle="slide" href="#">
                 <i class="mdi mdi-settings mr-2"></i>
-                <span class="side-menu__label">Settings</span>
+                <span class="side-menu__label">Settings</span><i class="angle fa fa-angle-right"></i>
             </a>
+            <ul class="slide-menu">
+                <li><a href="{{route('manage-pricing')}}" class="slide-item"> Pricing</a></li>
+                <li><a href="{{route('subscriptions')}}" class="slide-item">Daily Motivation</a></li>
+                <li><a href="{{route('add-new-team-member')}}" class="slide-item">Activity Log</a></li>
+            </ul>
         </li>
         <li class="slide">
             <a class="side-menu__item" data-toggle="slide" href="#">

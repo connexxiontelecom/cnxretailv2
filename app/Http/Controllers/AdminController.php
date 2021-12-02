@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminUser;
+use App\Models\Pricing;
 use App\Models\Subscription;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class AdminController extends Controller
         $this->adminuser = new AdminUser();
         $this->tenant = new Tenant();
         $this->subscription = new Subscription();
+        $this->pricing = new Pricing();
     }
 
     public function adminDashboard(){
@@ -64,5 +66,41 @@ class AdminController extends Controller
 
     public function getTenantSubscriptions(){
         return view('admin.subscription',['subscriptions'=>$this->subscription->getTenantSubscriptions()]);
+    }
+
+    public function managePricing(){
+        return view('admin.manage-pricing',['pricings'=>$this->pricing->getAllPricing()]);
+    }
+
+    public function addPricing(Request $request){
+        $this->validate($request,[
+            'name'=>'required|unique:pricings,price_name',
+            'amount'=>'required',
+            'duration'=>'required'
+        ],[
+            'name.required'=>'Enter price name',
+            'name.unique'=>'Enter a unique price name',
+            'amount.required'=>'Enter amount',
+            'duration.required'=>'Enter duration for this pricing plan'
+        ]);
+        $this->pricing->setNewPricing($request);
+        session()->flash("success", "New pricing plan added successfully");
+        return back();
+    }
+
+    public function editPricing(Request $request){
+        $this->validate($request,[
+            'name'=>'required',
+            'amount'=>'required',
+            'duration'=>'required',
+            'price'=>'required'
+        ],[
+            'name.required'=>'Enter price name',
+            'amount.required'=>'Enter amount',
+            'duration.required'=>'Enter duration for this pricing plan'
+        ]);
+        $this->pricing->editPricing($request);
+        session()->flash("success", "Your changes were saved successfully");
+        return back();
     }
 }

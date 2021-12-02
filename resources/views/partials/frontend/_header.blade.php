@@ -12,7 +12,6 @@
                     <div class="nav-menus-wrapper">
                         <ul class="nav-menu">
                             <li class="active"><a href="{{route('homepage')}}">Home</a></li>
-                            <li class=""><a href="{{route('homepage')}}">Pricing</a></li>
                             <li class=""><a href="{{route('marketplace')}}">Marketplace</a></li>
                             <li class=""><a href="{{route('contact-us')}}">Contact us</a></li>
                         </ul>
