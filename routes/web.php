@@ -187,6 +187,9 @@ Route::prefix('/tunnel')->group(function(){
     Route::get('/manage-pricing',[App\Http\Controllers\AdminController::class, 'managePricing'])->name('manage-pricing');
     Route::post('/add-pricing',[App\Http\Controllers\AdminController::class, 'addPricing'])->name('add-pricing');
     Route::post('/update-pricing',[App\Http\Controllers\AdminController::class, 'editPricing'])->name('update-pricing');
+    Route::get('/daily-motivation',[App\Http\Controllers\AdminController::class, 'manageDailyMotivations'])->name('daily-motivation');
+    Route::post('/add-daily-motivation',[App\Http\Controllers\AdminController::class, 'addDailyMotivation'])->name('add-daily-motivation');
+    Route::post('/update-daily-motivation',[App\Http\Controllers\AdminController::class, 'updateDailyMotivation'])->name('update-daily-motivation');
 });
 
 Auth::routes();

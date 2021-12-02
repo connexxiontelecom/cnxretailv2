@@ -24,7 +24,7 @@
             </a>
             <ul class="slide-menu">
                 <li><a href="{{route('manage-pricing')}}" class="slide-item"> Pricing</a></li>
-                <li><a href="{{route('subscriptions')}}" class="slide-item">Daily Motivation</a></li>
+                <li><a href="{{route('daily-motivation')}}" class="slide-item">Daily Motivation</a></li>
                 <li><a href="{{route('add-new-team-member')}}" class="slide-item">Activity Log</a></li>
             </ul>
         </li>

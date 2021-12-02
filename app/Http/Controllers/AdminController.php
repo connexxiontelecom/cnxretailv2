@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminUser;
+use App\Models\DailyMotivation;
 use App\Models\Pricing;
 use App\Models\Subscription;
 use App\Models\Tenant;
@@ -17,6 +18,7 @@ class AdminController extends Controller
         $this->tenant = new Tenant();
         $this->subscription = new Subscription();
         $this->pricing = new Pricing();
+        $this->dailymotivation = new DailyMotivation();
     }
 
     public function adminDashboard(){
@@ -103,4 +105,38 @@ class AdminController extends Controller
         session()->flash("success", "Your changes were saved successfully");
         return back();
     }
+
+    public function manageDailyMotivations(){
+        return view('admin.manage-daily-motivation',['motivations'=>$this->dailymotivation->getAllDailyMotivations()]);
+    }
+
+    public function addDailyMotivation(Request $request){
+        $this->validate($request,[
+            'time'=>'required',
+            'author'=>'required',
+            'motivation'=>'required'
+        ],[
+            'time.required'=>'Select time of day',
+            'author.required'=>'Enter the name of the author or type Unknown',
+            'motivation.required'=>'Enter motivation here...'
+        ]);
+        $this->dailymotivation->setNewDailyMotivation($request);
+        session()->flash("success", "Daily motivation added successfully.");
+        return back();
+    }
+    public function updateDailyMotivation(Request $request){
+        $this->validate($request,[
+            'time'=>'required',
+            'author'=>'required',
+            'motivation'=>'required'
+        ],[
+            'time.required'=>'Select time of day',
+            'author.required'=>'Enter the name of the author or type Unknown',
+            'motivation.required'=>'Enter motivation here...'
+        ]);
+        $this->dailymotivation->editDailyMotivation($request);
+        session()->flash("success", "Your changes were saved.");
+        return back();
+    }
+
 }

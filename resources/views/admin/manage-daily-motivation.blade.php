@@ -1,9 +1,9 @@
 @extends('layouts.admin-layout')
 @section('active-page')
-    Manage Pricing
+    Daily Motivation
 @endsection
 @section('title')
-    Manage Pricing
+    Daily Motivation
 @endsection
 @section('extra-styles')
     <link href="/assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet"/>
@@ -18,30 +18,31 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{route('add-pricing')}}" method="post" autocomplete="off">
+                    <form action="{{route('add-daily-motivation')}}" method="post" autocomplete="off">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="">Price Name</label>
-                                    <input type="text" placeholder="Price Name" name="name" value="{{ old('name') }}" class="form-control">
-                                    @error('name')<i class="text-danger">{{$message}}</i>@enderror
+                                    <label for="">Time of Day</label>
+                                    <select name="time" id="time" class="form-control">
+                                        <option selected disabled>--Select time of day--</option>
+                                        <option value="1">Morning</option>
+                                        <option value="2">Afternoon</option>
+                                        <option value="3">Evening</option>
+                                        <option value="4">Night</option>
+                                    </select>
+                                    @error('time')<i class="text-danger">{{$message}}</i>@enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Amount</label>
-                                    <input type="number" step="0.01" placeholder="Price" name="amount" value="{{ old('amount') }}" class="form-control">
-                                    @error('amount')<i class="text-danger">{{$message}}</i>@enderror
+                                    <label for="">Author</label>
+                                    <input type="text"  placeholder="Author" name="author" value="{{ old('author') }}" class="form-control">
+                                    @error('author')<i class="text-danger">{{$message}}</i>@enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Duration <small>(in days)</small></label>
-                                    <input type="number" placeholder="Duration" name="duration" value="{{ old('duration') }}" class="form-control">
-                                    @error('duration')<i class="text-danger">{{$message}}</i>@enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Description</label>
-                                    <textarea name="description" id="description" style="resize: none;"
-                                              class="form-control">{{ old('description') }}</textarea>
-                                    @error('description')<i class="text-danger">{{$message}}</i>@enderror
+                                    <label for="">Motivation</label>
+                                    <textarea name="motivation" placeholder="Type motivation here..." id="motivation" style="resize: none;"
+                                              class="form-control">{{ old('motivation') }}</textarea>
+                                    @error('motivation')<i class="text-danger">{{$message}}</i>@enderror
                                 </div>
                                 <div class="form-group d-flex justify-content-center">
                                     <div class="btn-group">
@@ -71,63 +72,77 @@
                             <thead>
                             <tr>
                                 <th class="">#</th>
-                                <th class="wd-15p">Name</th>
-                                <th class="wd-15p">Amount</th>
-                                <th class="wd-15p">Duration</th>
+                                <th class="wd-15p">Author</th>
+                                <th class="wd-15p">Motivation</th>
+                                <th class="wd-15p">Time</th>
                                 <th class="wd-25p">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @php $serial = 1; @endphp
-                            @foreach($pricings as $pricing)
+                            @foreach($motivations as $motivation)
                                 <tr>
                                     <td>{{$serial++}}</td>
-                                    <td>{{$pricing->price_name ?? '' }}</td>
-                                    <td>{{ number_format($pricing->price ?? 0,2)  }}</td>
-                                    <td>{{$pricing->duration ?? '' }} days</td>
+                                    <td>{{$motivation->author ??  '' }}</td>
+                                    <td>{{ strlen($motivation->motivation) > 54 ? substr($motivation->motivation,0,51).'...' : $motivation->motivation  }}</td>
                                     <td>
-                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#pricingModal_{{$pricing->id}}" class="btn btn-sm btn-info">View</a>
+                                        @switch($motivation->time)
+                                            @case(1)
+                                            Morning
+                                            @break
+                                            @case(2)
+                                            Afternoon
+                                            @break
+                                            @case(3)
+                                            Evening
+                                            @break
+                                            @case(4)
+                                            Night
+                                            @break
+                                        @endswitch
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" data-toggle="modal" data-target="#motivationModal_{{$motivation->id}}" class="btn btn-sm btn-info">View</a>
                                     </td>
                                 </tr>
-                                <div class="modal" id="pricingModal_{{$pricing->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal" id="motivationModal_{{$motivation->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Pricing</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Edit Motivation</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{route('update-pricing')}}" method="post" autocomplete="off">
+                                                <form action="{{route('update-daily-motivation')}}" method="post" autocomplete="off">
                                                     @csrf
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="">Price Name</label>
-                                                                <input type="text" placeholder="Price Name" name="name" value="{{$pricing->price_name ?? ''}}" class="form-control">
-                                                                @error('name')<i class="text-danger">{{$message}}</i>@enderror
+                                                                <label for="">Time of Day</label>
+                                                                <select name="time" id="time" class="form-control">
+                                                                    <option value="1" {{$motivation->id == 1 ? 'selected' : '' }}>Morning</option>
+                                                                    <option value="2" {{$motivation->id == 2 ? 'selected' : '' }}>Afternoon</option>
+                                                                    <option value="3" {{$motivation->id == 3 ? 'selected' : '' }}>Evening</option>
+                                                                    <option value="4" {{$motivation->id == 4 ? 'selected' : '' }}>Night</option>
+                                                                </select>
+                                                                @error('time')<i class="text-danger">{{$message}}</i>@enderror
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="">Amount</label>
-                                                                <input type="number" step="0.01" placeholder="Price" name="amount" value="{{$pricing->price ?? ''}}" class="form-control">
-                                                                @error('amount')<i class="text-danger">{{$message}}</i>@enderror
+                                                                <label for="">Author</label>
+                                                                <input type="text"  placeholder="Author" name="author" value="{{ $motivation->author ?? '' }}" class="form-control">
+                                                                @error('author')<i class="text-danger">{{$message}}</i>@enderror
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="">Duration <small>(in days)</small></label>
-                                                                <input type="number" placeholder="Duration" name="duration" value="{{$pricing->duration ?? ''}}" class="form-control">
-                                                                @error('duration')<i class="text-danger">{{$message}}</i>@enderror
+                                                                <label for="">Motivation</label>
+                                                                <textarea name="motivation" id="motivation" style="resize: none;"
+                                                                          class="form-control">{{ $motivation->motivation ?? '' }}</textarea>
+                                                                @error('motivation')<i class="text-danger">{{$message}}</i>@enderror
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="">Description</label>
-                                                                <textarea name="description" id="description" style="resize: none;"
-                                                                          class="form-control">{{$pricing->description ?? '' }}</textarea>
-                                                                @error('description')<i class="text-danger">{{$message}}</i>@enderror
-                                                            </div>
-                                                            <input type="hidden" name="price" value="{{$pricing->id}}">
                                                             <div class="form-group d-flex justify-content-center">
+                                                                <input type="hidden" name="daily" value="{{$motivation->id}}">
                                                                 <div class="btn-group">
-                                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"> <i class="ti-close mr-2"></i> Close</button>
                                                                     <button type="submit" class="btn btn-sm btn-primary"><i class="ti-check mr-2"></i> Save changes</button>
                                                                 </div>
                                                             </div>
