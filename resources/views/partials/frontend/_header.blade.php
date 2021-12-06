@@ -12,7 +12,7 @@
                     <div class="nav-menus-wrapper">
                         <ul class="nav-menu">
                             <li class="active"><a href="{{route('homepage')}}">Home</a></li>
-                            <li class=""><a href="{{route('marketplace')}}">Marketplace</a></li>
+                            <li class="" style="background: #ff0000"><a class="text-white" href="{{route('marketplace')}}">Marketplace</a></li>
                             <li class=""><a href="{{route('contact-us')}}">Contact us</a></li>
                         </ul>
 
