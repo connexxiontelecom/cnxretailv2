@@ -11,7 +11,6 @@
 <body>
 <div class="page-wrapper">
     <h1 class="d-none">CNX Retail</h1>
-    <!-- Start of Header -->
     <header class="header header-border">
         <div class="header-middle">
             <div class="container">
