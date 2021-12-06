@@ -106,6 +106,14 @@ public function setNewItem(Request $request){
     }
 
     public function getItemsAtRandom(){
-        return Item::where('item_type',1)->inRandomOrder()->take(50)->get();
+        return Item::where('item_type',1)->inRandomOrder()->paginate(50);
+    }
+
+    public function getItemsByCategoryId($cat_id){
+        return Item::where('item_type',1)->where('category_id', $cat_id)->inRandomOrder()->paginate(50);
+    }
+
+    public function searchForProduct($keyword){
+        return Item::where('item_name', 'like', '%' . $keyword . '%')->get();
     }
 }

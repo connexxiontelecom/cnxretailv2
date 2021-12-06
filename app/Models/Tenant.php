@@ -64,6 +64,10 @@ class Tenant extends Model
     public function getAllRegisteredTenants(){
         return Tenant::orderBy('id', 'DESC')->get();
     }
+    public function getAllActiveRegisteredTenants(){
+        return Tenant::where('account_status',1)->orderBy('company_name', 'ASC')->get();
+    }
+
     public function getAllRegisteredTenantsThisMonth(){
         return Tenant::whereMonth('created_at', date('m'))->orderBy('id', 'DESC')->get();
     }

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Contact;
 use App\Models\ContactUs;
 use App\Models\Item;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -17,6 +18,7 @@ class IndexController extends Controller
         $this->category = new Category();
         $this->buyerrequest = new BuyerRequest();
         $this->contactus = new ContactUs();
+        $this->tenant = new Tenant();
     }
 
     public function index(){
@@ -29,17 +31,61 @@ class IndexController extends Controller
 
         return view('frontend.marketplace',[
             'items'=>$this->item->getItemsAtRandom(),
-            'categories'=>$this->category->getAllGeneralCategories()
+            'categories'=>$this->category->getAllGeneralCategories(),
+            'vendors'=>$this->tenant->getAllActiveRegisteredTenants()
         ]);
     }
 
     public function viewItem($slug){
         $item = $this->item->getItemBySlug($slug);
         if(!empty($item)){
-            return view('frontend.view-item',['item'=>$item]);
+            return view('frontend.view-item',['item'=>$item,
+                'categories'=>$this->category->getAllGeneralCategories(),]);
         }else{
             return back();
         }
+    }
+
+    public function vendorStore($slug){
+        $vendor = $this->tenant->getTenantBySlug($slug);
+        if(!empty($vendor)){
+            $items = $this->item->getAllTenantItems($vendor->id);
+            return view('frontend.vendor-store',[
+                'vendor'=>$vendor,
+                'items'=>$items,
+            'categories'=>$this->category->getAllGeneralCategories(),
+                'vendors'=>$this->tenant->getAllActiveRegisteredTenants()
+                ]);
+        }else{
+            return back();
+        }
+    }
+
+    public function productCategories($slug){
+        $category = $this->category->getCategoryBySlug($slug);
+        if(!empty($category)){
+            $items = $this->item->getItemsByCategoryId($category->id);
+            return view('frontend.product-category',['items'=>$items,
+                'categories'=>$this->category->getAllGeneralCategories(),
+                'vendors'=>$this->tenant->getAllActiveRegisteredTenants(),
+                'category'=>$category]);
+        }else{
+            return back();
+        }
+    }
+
+
+    public function searchProduct(Request $request){
+        $this->validate($request,[
+            'keyword'=>'required'
+        ]);
+            $items = $this->item->searchForProduct($request->keyword);
+            return view('frontend.search-product',[
+                'items'=>$items,
+                'categories'=>$this->category->getAllGeneralCategories(),
+                'vendors'=>$this->tenant->getAllActiveRegisteredTenants(),
+                'keyword'=>$request->keyword
+               ]);
     }
 
     public function contactUs(){

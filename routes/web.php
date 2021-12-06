@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[App\Http\Controllers\IndexController::class, 'index'])->name('homepage');
 Route::get('/marketplace',[App\Http\Controllers\IndexController::class, 'marketplace'])->name('marketplace');
+Route::get('/store/{slug}',[App\Http\Controllers\IndexController::class, 'vendorStore'])->name('vendor-store');
+Route::get('/product-category/{slug}',[App\Http\Controllers\IndexController::class, 'productCategories'])->name('product-category');
+Route::get('/search-product',[App\Http\Controllers\IndexController::class, 'searchProduct'])->name('product-search');
+/*Route::get('/marketplace',function(){
+    return view('layouts.marketplace-layout');
+})->name('marketplace');*/
+
 Route::get('/marketplace/{slug}',[App\Http\Controllers\IndexController::class, 'viewItem'])->name('view-item');
 Route::get('/contact-us',[App\Http\Controllers\IndexController::class, 'contactUs'])->name('contact-us');
 Route::post('/contact-us',[App\Http\Controllers\IndexController::class, 'saveContactUs']);

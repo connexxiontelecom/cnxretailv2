@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -19,6 +20,7 @@ class Category extends Model
         $cat = new Category();
         $cat->tenant_id = Auth::user()->tenant_id;
         $cat->category_name = $request->category_name;
+        $cat->slug = Str::slug($request->category_name);
         $cat->save();
     }
     public function updateCategory(Request $request){
@@ -29,6 +31,9 @@ class Category extends Model
 
     public function getCategoryById($id){
         return Category::find($id);
+    }
+    public function getCategoryBySlug($slug){
+        return Category::where('slug',$slug)->first();
     }
 
     public function getAllCategories(){
