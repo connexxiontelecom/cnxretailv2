@@ -34,11 +34,11 @@ Route::prefix('/settings')->group(function(){
     Route::get('/', [App\Http\Controllers\AppSettingsController::class, 'showSettingsView'])->name('app-settings');
     Route::post('/', [App\Http\Controllers\AppSettingsController::class, 'saveSettings']);
     Route::post('/payment-integration', [App\Http\Controllers\AppSettingsController::class, 'savePaymentIntegration'])->name('app-payment-integration');
+    Route::post('/update-bulk-sms-settings', [App\Http\Controllers\AppSettingsController::class, 'updateBulkSmsSettings'])->name('update-bulk-settings');
     Route::post('/new-mailchimp-settings', [App\Http\Controllers\AppSettingsController::class, 'saveMailchimpSetting'])->name('new-mailchimp-settings');
     Route::post('/update-mailchimp-settings', [App\Http\Controllers\AppSettingsController::class, 'updateMailchimpSetting'])->name('update-mailchimp-settings');
     Route::post('/save-bank', [App\Http\Controllers\AppSettingsController::class, 'saveBank'])->name('save-bank');
     Route::post('/update-bank', [App\Http\Controllers\AppSettingsController::class, 'updateBank'])->name('update-bank');
-    Route::post('/update-bulk-sms-settings', [App\Http\Controllers\AppSettingsController::class, 'updateBulkSmsSettings'])->name('update-bulk-settings');
 });
 
 

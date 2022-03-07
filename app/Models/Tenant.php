@@ -50,7 +50,7 @@ class Tenant extends Model
     }
     public function updateTenantPaymentIntegration(Request $request){
         $tenant = Tenant::find(Auth::user()->tenant_id);
-        $tenant->secret_key = $request->secret_key ?? Auth::user()->getTenant->phone_no;
+        $tenant->secret_key = $request->secret_key ?? Auth::user()->getTenant->secret_key;
         $tenant->public_key = $request->public_key ?? Auth::user()->getTenant->public_key;
         $tenant->save();
     }
